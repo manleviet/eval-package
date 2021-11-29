@@ -112,7 +112,7 @@ public class PerformanceEvaluation {
     }
 
     /**
-     * Get evaluation results in the formal of a string.
+     * Get evaluation results in the format of a string.
      * @return a string of evaluation results.
      */
     public static String getEvaluationResults() {
@@ -132,7 +132,7 @@ public class PerformanceEvaluation {
     }
 
     /**
-     * Get average results after the number of iterations in the formal of a string.
+     * Get average results after the number of iterations in the format of a string.
      * @param numIteration the number of iterations
      * @return a string of evaluation results.
      */
