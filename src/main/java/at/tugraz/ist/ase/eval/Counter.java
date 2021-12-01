@@ -9,17 +9,24 @@
 package at.tugraz.ist.ase.eval;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
-public class Counter extends Evaluation {
+@Slf4j
+public class Counter extends AbstractEvaluator {
     @Getter
     private long value = 0;
 
     Counter(String name) {
         super(name);
+
+        log.info("Counter for '{}' created", name);
     }
 
     public long increment(int step) {
         this.value = this.value + step;
+
+        log.debug("Counter of '{}' incremented '{}' step(s).", name, step);
+
         return getValue();
     }
 

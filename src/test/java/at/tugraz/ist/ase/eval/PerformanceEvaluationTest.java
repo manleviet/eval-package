@@ -8,9 +8,12 @@
 
 package at.tugraz.ist.ase.eval;
 
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import static at.tugraz.ist.ase.eval.PerformanceEvaluation.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PerformanceEvaluationTest {
 
@@ -25,6 +28,7 @@ public class PerformanceEvaluationTest {
     public static final String TIMER_ALL = "Time for all:";
 
     @Test
+    @DisplayName("Test performance evaluation")
     public void testPerformanceEvaluation() {
         PerformanceEvaluation.reset();
 
@@ -62,11 +66,11 @@ public class PerformanceEvaluationTest {
         String results = PerformanceEvaluation.getEvaluationResults();
         System.out.println(results);
 
-        assert getCounter(COUNTER_FINDCONFLICT_CALLS).getValue() == 3;
-        assert getCounter(COUNTER_FASTDIAG_CALLS).getValue() == 5;
-        assert getCounter(COUNTER_CONSISTENCY_CHECKS).getValue() == 21;
-        assert getCounter(COUNTER_SIZE_CONSISTENCY_CHECKS).getValue() == 301;
-        assert getCounter(COUNTER_UNION_OPERATOR).getValue() == 3;
-        assert getCounter(COUNTER_ADD_OPERATOR).getValue() == 3;
+        assertAll(() -> assertEquals(3, getCounter(COUNTER_FINDCONFLICT_CALLS).getValue()),
+                () -> assertEquals(5, getCounter(COUNTER_FASTDIAG_CALLS).getValue()),
+                () -> assertEquals(21, getCounter(COUNTER_CONSISTENCY_CHECKS).getValue()),
+                () -> assertEquals(301, getCounter(COUNTER_SIZE_CONSISTENCY_CHECKS).getValue()),
+                () -> assertEquals(3, getCounter(COUNTER_UNION_OPERATOR).getValue()),
+                () -> assertEquals(3, getCounter(COUNTER_ADD_OPERATOR).getValue()));
     }
 }

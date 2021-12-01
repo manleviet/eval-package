@@ -8,15 +8,13 @@
 
 package at.tugraz.ist.ase.eval;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @ToString
+@AllArgsConstructor
 @EqualsAndHashCode
-public abstract class Evaluation {
+public abstract class AbstractEvaluator {
     protected final String name;
-
-    Evaluation(String name) {
-        this.name = name;
-    }
 }

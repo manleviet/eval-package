@@ -8,10 +8,13 @@
 
 package at.tugraz.ist.ase.eval;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Slf4j
 public class PerformanceEvaluation {
 
     public static boolean showEvaluation = false;
@@ -109,6 +112,8 @@ public class PerformanceEvaluation {
     public static void reset() {
         counters = new ConcurrentHashMap<>();
         timers = new ConcurrentHashMap<>();
+
+        log.info("PerformanceEvaluation has been reset.");
     }
 
     /**
