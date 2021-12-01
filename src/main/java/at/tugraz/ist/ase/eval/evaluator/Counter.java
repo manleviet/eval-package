@@ -6,7 +6,7 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.eval;
+package at.tugraz.ist.ase.eval.evaluator;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ public class Counter extends AbstractEvaluator {
     @Getter
     private long value = 0;
 
-    Counter(String name) {
+    public Counter(String name) {
         super(name);
 
         log.info("Counter for '{}' created", name);

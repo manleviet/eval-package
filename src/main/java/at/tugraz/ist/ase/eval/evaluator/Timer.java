@@ -6,7 +6,7 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.eval;
+package at.tugraz.ist.ase.eval.evaluator;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,7 +27,7 @@ public class Timer extends AbstractEvaluator {
     private long time = 0;
     private boolean running = false;
 
-    Timer(String name) {
+    public Timer(String name) {
         super(name);
 
         log.info("Timer for '{}' created", name);

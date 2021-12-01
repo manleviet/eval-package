@@ -6,7 +6,7 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.eval;
+package at.tugraz.ist.ase.eval.evaluator;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

@@ -8,14 +8,15 @@
 
 package at.tugraz.ist.ase.eval;
 
+import at.tugraz.ist.ase.eval.evaluator.PerformanceEvaluator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static at.tugraz.ist.ase.eval.PerformanceEvaluation.*;
+import static at.tugraz.ist.ase.eval.evaluator.PerformanceEvaluator.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PerformanceEvaluationTest {
+public class PerformanceEvaluatorTest {
 
     public static final String COUNTER_FINDCONFLICT_CALLS = "The number of QX calls:";
     public static final String COUNTER_FASTDIAG_CALLS = "The number of FD calls:";
@@ -30,7 +31,7 @@ public class PerformanceEvaluationTest {
     @Test
     @DisplayName("Test performance evaluation")
     public void testPerformanceEvaluation() {
-        PerformanceEvaluation.reset();
+        PerformanceEvaluator.reset();
 
         start(TIMER_ALL);
         start(TIMER_FIRST);
@@ -63,7 +64,7 @@ public class PerformanceEvaluationTest {
         stop(TIMER_FIRST);
         stop(TIMER_ALL);
 
-        String results = PerformanceEvaluation.getEvaluationResults();
+        String results = PerformanceEvaluator.getEvaluationResults();
         System.out.println(results);
 
         assertAll(() -> assertEquals(3, getCounter(COUNTER_FINDCONFLICT_CALLS).getValue()),
