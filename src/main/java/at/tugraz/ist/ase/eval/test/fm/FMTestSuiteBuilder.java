@@ -1,0 +1,53 @@
+/*
+ * eval-package - A Maven package for evaluation
+ *
+ * Copyright (c) 2021
+ *
+ * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+ */
+
+package at.tugraz.ist.ase.eval.test.fm;
+
+import at.tugraz.ist.ase.eval.test.ITestCaseBuildable;
+import at.tugraz.ist.ase.eval.test.ITestSuiteBuildable;
+import at.tugraz.ist.ase.eval.test.TestCase;
+import at.tugraz.ist.ase.eval.test.TestSuite;
+import lombok.Cleanup;
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.LinkedList;
+import java.util.List;
+
+@Slf4j
+public class FMTestSuiteBuilder implements ITestSuiteBuildable {
+
+    @Override
+    public TestSuite buildTestSuite(@NonNull InputStream is, @NonNull ITestCaseBuildable testCaseBuilder) throws IOException {
+        log.info("Building test suite from input stream");
+
+        @Cleanup BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+
+        List<TestCase>  testCases = new LinkedList<>();
+
+        String line = br.readLine();
+
+        // Read all test cases
+        while ((line = br.readLine()) != null) {
+            TestCase testCase = testCaseBuilder.buildTestCase(line);
+            testCases.add(testCase);
+        }
+
+        TestSuite testSuite = TestSuite.builder()
+                .testCases(testCases)
+                .build();
+
+        log.debug("Test suite built");
+        return testSuite;
+    }
+}
