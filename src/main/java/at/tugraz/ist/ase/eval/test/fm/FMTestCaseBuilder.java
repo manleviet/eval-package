@@ -13,7 +13,6 @@ import at.tugraz.ist.ase.eval.test.Assignment;
 import at.tugraz.ist.ase.eval.test.ITestCaseBuildable;
 import at.tugraz.ist.ase.eval.test.TestCase;
 import lombok.NonNull;
-import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.LinkedList;
@@ -41,6 +40,7 @@ public class FMTestCaseBuilder implements ITestCaseBuildable {
         for (String clause: clauses) {
             LoggerUtils.indent();
             log.debug("{}Parsing assignment '{}'", LoggerUtils.tab, clause);
+
             String variable;
             String value;
             if (clause.startsWith("~")) {

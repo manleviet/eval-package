@@ -12,6 +12,7 @@ import at.tugraz.ist.ase.eval.test.fm.FMTestCaseBuilder;
 import lombok.Cleanup;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -67,6 +68,8 @@ class TestCaseTest {
     @Test
     public void shouldCloneable() {
         TestCase tc = testsuite.get(0);
+        assertDoesNotThrow(tc::clone);
+
         TestCase tc2 = tc.clone();
 
         assertAll(() -> assertEquals(tc.getTestcase(), tc2.getTestcase(), "Testcase"),

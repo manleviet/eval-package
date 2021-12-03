@@ -31,9 +31,13 @@ public class Assignment implements Cloneable {
 
     @Override
     public Assignment clone() {
-        return Assignment.builder()
-                .variable(variable)
-                .value(value)
-                .build();
+        try {
+            return (Assignment) super.clone();
+        } catch (CloneNotSupportedException e) {
+            return Assignment.builder()
+                    .variable(variable)
+                    .value(value)
+                    .build();
+        }
     }
 }

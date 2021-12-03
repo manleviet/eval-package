@@ -13,7 +13,6 @@ import org.chocosolver.solver.constraints.Constraint;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /***
  * Represents a test case.
@@ -58,24 +57,39 @@ public class TestCase implements Cloneable {
 
     @Override
     public TestCase clone() {
+        TestCase testCase;
+        try {
+            testCase = (TestCase) super.clone();
+        } catch (CloneNotSupportedException e) {
+            testCase = TestCase.builder().build();
+        }
+
         // copy assignments, constraints and negConstraints
-        List<Assignment> assignments = this.assignments.stream()
-                    .map(Assignment::clone)
-                    .collect(Collectors.toList());
+        List<Assignment> assignments = new ArrayList<>();
+        for (Assignment assignment : this.assignments) {
+            Assignment cloneAssignment = assignment.clone();
+            assignments.add(cloneAssignment);
+        }
         List<Constraint> constraints = null;
-        if (constraints != null) {
+        if (this.constraints != null) {
             constraints = new ArrayList<>(this.constraints);
         }
         List<Constraint> negConstraints = null;
-        if (negConstraints != null) {
+        if (this.negConstraints != null) {
             negConstraints = new ArrayList<>(this.negConstraints);
         }
 
-        return TestCase.builder()
-                .testcase(testcase)
-                .assignments(assignments)
-                .constraints(constraints)
-                .negConstraints(negConstraints)
-                .build();
+        testCase.setAssignments(assignments);
+        testCase.setConstraints(constraints);
+        testCase.setNegConstraints(negConstraints);
+
+        return testCase;
+
+//        return TestCase.builder()
+//                .testcase(testcase)
+//                .assignments(assignments)
+//                .constraints(constraints)
+//                .negConstraints(negConstraints)
+//                .build();
     }
 }
