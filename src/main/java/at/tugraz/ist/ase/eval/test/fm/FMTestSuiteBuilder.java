@@ -8,6 +8,7 @@
 
 package at.tugraz.ist.ase.eval.test.fm;
 
+import at.tugraz.ist.ase.common.LoggerUtils;
 import at.tugraz.ist.ase.eval.test.ITestCaseBuildable;
 import at.tugraz.ist.ase.eval.test.ITestSuiteBuildable;
 import at.tugraz.ist.ase.eval.test.TestCase;
@@ -29,7 +30,8 @@ public class FMTestSuiteBuilder implements ITestSuiteBuildable {
 
     @Override
     public TestSuite buildTestSuite(@NonNull InputStream is, @NonNull ITestCaseBuildable testCaseBuilder) throws IOException {
-        log.info("Building test suite from input stream");
+        log.debug("{}Building test suite from input stream >>>", LoggerUtils.tab);
+        LoggerUtils.indent();
 
         @Cleanup BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
 
@@ -47,7 +49,8 @@ public class FMTestSuiteBuilder implements ITestSuiteBuildable {
                 .testCases(testCases)
                 .build();
 
-        log.debug("Test suite built");
+        LoggerUtils.outdent();
+        log.debug("{}<<< Test suite built", LoggerUtils.tab);
         return testSuite;
     }
 }

@@ -8,6 +8,7 @@
 
 package at.tugraz.ist.ase.eval.evaluator;
 
+import at.tugraz.ist.ase.common.LoggerUtils;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,13 +20,13 @@ public class Counter extends AbstractEvaluator {
     public Counter(String name) {
         super(name);
 
-        log.info("Counter for '{}' created", name);
+        log.debug("{}Counter for '{}' created", LoggerUtils.tab, name);
     }
 
     public long increment(int step) {
         this.value = this.value + step;
 
-        log.debug("Counter of '{}' incremented '{}' step(s).", name, step);
+        log.trace("{}Counter of '{}' incremented '{}' step(s).", LoggerUtils.tab, name, step);
 
         return getValue();
     }

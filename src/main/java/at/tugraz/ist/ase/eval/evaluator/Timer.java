@@ -8,6 +8,7 @@
 
 package at.tugraz.ist.ase.eval.evaluator;
 
+import at.tugraz.ist.ase.common.LoggerUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.LinkedList;
@@ -30,7 +31,7 @@ public class Timer extends AbstractEvaluator {
     public Timer(String name) {
         super(name);
 
-        log.info("Timer for '{}' created", name);
+        log.debug("{}Timer for '{}' created", LoggerUtils.tab, name);
     }
 
     /**
@@ -41,7 +42,7 @@ public class Timer extends AbstractEvaluator {
         this.running = true;
         this.time = System.nanoTime();
 
-        log.debug("Timer for '{}' started.", name);
+        log.trace("{}Timer for '{}' started.", LoggerUtils.tab, name);
     }
 
     /**
@@ -54,7 +55,7 @@ public class Timer extends AbstractEvaluator {
         this.running = false;
         this.timings.add(this.time);
 
-        log.debug("Timer for '{}' stopped.", name);
+        log.trace("{}Timer for '{}' stopped.", LoggerUtils.tab, name);
 
         return this.time;
     }

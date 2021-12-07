@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
+// TODO: @UtilityClass
 public class PerformanceEvaluator {
 
     public static boolean showEvaluation = false;
