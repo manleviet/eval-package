@@ -16,6 +16,7 @@ import org.junit.jupiter.api.function.Executable;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -74,5 +75,10 @@ class TestCaseTest {
 
         assertAll(() -> assertEquals(tc.getTestcase(), tc2.getTestcase(), "Testcase"),
                 () -> assertEquals(tc.getAssignments().get(0), tc2.getAssignments().get(0), "Assignments"));
+
+        tc2.setAssignments(Collections.emptyList());
+
+        assertAll(() -> assertEquals(4, tc.getAssignments().size()),
+                () -> assertEquals(0, tc2.getAssignments().size()));
     }
 }

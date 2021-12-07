@@ -34,10 +34,7 @@ public class Assignment implements Cloneable {
         try {
             return (Assignment) super.clone();
         } catch (CloneNotSupportedException e) {
-            return Assignment.builder()
-                    .variable(variable)
-                    .value(value)
-                    .build();
+            throw new AssertionError();
         }
     }
 }

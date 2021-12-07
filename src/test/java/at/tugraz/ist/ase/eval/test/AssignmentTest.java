@@ -25,12 +25,20 @@ class AssignmentTest {
     }
 
     @Test
-    public void shouldCloneable() throws CloneNotSupportedException {
+    public void shouldCloneable() {
         Assignment assignment = new Assignment("F1", "true");
         Assignment clone = assignment.clone();
 
         assertAll(()-> assertEquals(assignment, clone),
                 ()-> assertEquals(assignment.getVariable(), clone.getVariable()),
                 ()-> assertEquals(assignment.getValue(), clone.getValue()));
+
+        clone.setVariable("F2");
+        clone.setValue("false");
+
+        assertAll(() -> assertEquals("true", assignment.getValue()),
+                () -> assertEquals("F1", assignment.getVariable()),
+                () -> assertEquals("false", clone.getValue()),
+                () -> assertEquals("F2", clone.getVariable()));
     }
 }

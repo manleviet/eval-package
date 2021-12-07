@@ -57,39 +57,30 @@ public class TestCase implements Cloneable {
 
     @Override
     public TestCase clone() {
-        TestCase testCase;
         try {
-            testCase = (TestCase) super.clone();
+            TestCase clone = (TestCase) super.clone();
+            // copy assignments, constraints and negConstraints
+            List<Assignment> assignments = new ArrayList<>();
+            for (Assignment assignment : this.assignments) {
+                Assignment cloneAssignment = assignment.clone();
+                assignments.add(cloneAssignment);
+            }
+            clone.setAssignments(assignments);
+
+            List<Constraint> constraints = null;
+            if (this.constraints != null) {
+                constraints = new ArrayList<>(this.constraints);
+            }
+            List<Constraint> negConstraints = null;
+            if (this.negConstraints != null) {
+                negConstraints = new ArrayList<>(this.negConstraints);
+            }
+
+            clone.setConstraints(constraints);
+            clone.setNegConstraints(negConstraints);
+            return clone;
         } catch (CloneNotSupportedException e) {
-            testCase = TestCase.builder().build();
+            throw new AssertionError();
         }
-
-        // copy assignments, constraints and negConstraints
-        List<Assignment> assignments = new ArrayList<>();
-        for (Assignment assignment : this.assignments) {
-            Assignment cloneAssignment = assignment.clone();
-            assignments.add(cloneAssignment);
-        }
-        List<Constraint> constraints = null;
-        if (this.constraints != null) {
-            constraints = new ArrayList<>(this.constraints);
-        }
-        List<Constraint> negConstraints = null;
-        if (this.negConstraints != null) {
-            negConstraints = new ArrayList<>(this.negConstraints);
-        }
-
-        testCase.setAssignments(assignments);
-        testCase.setConstraints(constraints);
-        testCase.setNegConstraints(negConstraints);
-
-        return testCase;
-
-//        return TestCase.builder()
-//                .testcase(testcase)
-//                .assignments(assignments)
-//                .constraints(constraints)
-//                .negConstraints(negConstraints)
-//                .build();
     }
 }
