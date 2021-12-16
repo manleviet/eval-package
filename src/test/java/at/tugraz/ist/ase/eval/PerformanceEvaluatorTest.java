@@ -13,8 +13,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static at.tugraz.ist.ase.eval.evaluator.PerformanceEvaluator.*;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PerformanceEvaluatorTest {
 
@@ -32,6 +31,8 @@ public class PerformanceEvaluatorTest {
     @DisplayName("Test performance evaluation")
     public void testPerformanceEvaluation() {
         PerformanceEvaluator.reset();
+
+        assertThrows(IllegalStateException.class, () -> getTimer("TIMER_ALL").getElapsedTime());
 
         start(TIMER_ALL);
         start(TIMER_FIRST);
