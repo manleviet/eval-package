@@ -12,6 +12,8 @@ import lombok.*;
 import org.chocosolver.solver.constraints.Constraint;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 /***
@@ -32,10 +34,9 @@ public class TestCase implements Cloneable {
      */
     public void setConstraint(@NonNull Constraint constraint) {
         if (constraints == null) {
-            constraints = List.of(constraint);
-        } else {
-            constraints.add(constraint);
+            constraints = new LinkedList<>();
         }
+        constraints.add(constraint);
     }
 
     /**
@@ -44,10 +45,9 @@ public class TestCase implements Cloneable {
      */
     public void setNegConstraint(@NonNull Constraint neg_constraint) {
         if (negConstraints == null) {
-            negConstraints = List.of(neg_constraint);
-        } else {
-            negConstraints.add(neg_constraint);
+            negConstraints = new LinkedList<>();
         }
+        negConstraints.add(neg_constraint);
     }
 
     @Override
