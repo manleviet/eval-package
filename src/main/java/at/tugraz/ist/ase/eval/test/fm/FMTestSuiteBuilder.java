@@ -30,16 +30,17 @@ public class FMTestSuiteBuilder implements ITestSuiteBuildable {
 
     @Override
     public TestSuite buildTestSuite(@NonNull InputStream is, @NonNull ITestCaseBuildable testCaseBuilder) throws IOException {
-        log.debug("{}Building test suite from input stream >>>", LoggerUtils.tab);
+        log.trace("{}Building test suite from input stream >>>", LoggerUtils.tab);
         LoggerUtils.indent();
 
         @Cleanup BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
 
         List<TestCase>  testCases = new LinkedList<>();
 
-        String line = br.readLine();
+        br.readLine(); // omit first line
 
         // Read all test cases
+        String line;
         while ((line = br.readLine()) != null) {
             TestCase testCase = testCaseBuilder.buildTestCase(line);
             testCases.add(testCase);
@@ -50,7 +51,7 @@ public class FMTestSuiteBuilder implements ITestSuiteBuildable {
                 .build();
 
         LoggerUtils.outdent();
-        log.debug("{}<<< Test suite built", LoggerUtils.tab);
+        log.debug("{}<<< Built test suite [testsuite={}]", LoggerUtils.tab, testSuite);
         return testSuite;
     }
 }

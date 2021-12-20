@@ -51,8 +51,6 @@ public class TestCase implements Cloneable {
         negConstraints.add(neg_constraint);
     }
 
-    // TODO: Constraint from ChocoKB
-
     @Override
     public String toString() {
         return testcase;

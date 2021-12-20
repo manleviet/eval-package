@@ -21,7 +21,7 @@ import java.util.List;
 @Slf4j
 public class FMTestCaseBuilder implements ITestCaseBuildable {
     public TestCase buildTestCase(@NonNull String testcase) {
-        log.debug("{}Building a test case for '{}' >>>", LoggerUtils.tab, testcase);
+        log.trace("{}Building test case [testcase={}] >>>", LoggerUtils.tab, testcase);
         LoggerUtils.indent();
 
         List<Assignment> assignments = splitTestCase(testcase);
@@ -32,7 +32,7 @@ public class FMTestCaseBuilder implements ITestCaseBuildable {
                 .build();
 
         LoggerUtils.outdent();
-        log.debug("{}<<< Test case '{}' built", LoggerUtils.tab, testcase);
+        log.debug("{}<<< Built test case [testcase={}]", LoggerUtils.tab, testCase);
 
         return testCase;
     }
@@ -58,7 +58,7 @@ public class FMTestCaseBuilder implements ITestCaseBuildable {
 
             assignments.add(assignment);
 
-            log.trace("{}Assignment '{}' parsed - {}", LoggerUtils.tab, clause, assignment);
+            log.trace("{}Parsed assignment [clause={}, assignment={}]", LoggerUtils.tab, clause, assignment);
         }
         return assignments;
     }
