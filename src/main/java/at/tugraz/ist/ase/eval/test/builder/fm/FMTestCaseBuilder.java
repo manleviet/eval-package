@@ -1,16 +1,16 @@
 /*
  * eval-package - A Maven package for evaluation
  *
- * Copyright (c) 2021
+ * Copyright (c) 2021-2022
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.eval.test.fm;
+package at.tugraz.ist.ase.eval.test.builder.fm;
 
 import at.tugraz.ist.ase.common.LoggerUtils;
 import at.tugraz.ist.ase.eval.test.Assignment;
-import at.tugraz.ist.ase.eval.test.ITestCaseBuildable;
+import at.tugraz.ist.ase.eval.test.builder.ITestCaseBuildable;
 import at.tugraz.ist.ase.eval.test.TestCase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;

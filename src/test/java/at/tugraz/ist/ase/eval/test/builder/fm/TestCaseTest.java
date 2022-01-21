@@ -1,18 +1,17 @@
 /*
  * eval-package - A Maven package for evaluation
  *
- * Copyright (c) 2021
+ * Copyright (c) 2021-2022
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.eval.test;
+package at.tugraz.ist.ase.eval.test.builder.fm;
 
-import at.tugraz.ist.ase.eval.test.fm.FMTestCaseBuilder;
+import at.tugraz.ist.ase.eval.test.TestCase;
 import lombok.Cleanup;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -35,9 +34,10 @@ class TestCaseTest {
 
         @Cleanup BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
 
-        String line = br.readLine(); // read the first line and ignore it
+        br.readLine(); // read the first line and ignore it
 
         // Read all test cases
+        String line;
         while ((line = br.readLine()) != null) {
             TestCase testCase = builder.buildTestCase(line);
             testsuite.add(testCase);

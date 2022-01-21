@@ -1,15 +1,15 @@
 /*
  * eval-package - A Maven package for evaluation
  *
- * Copyright (c) 2021
+ * Copyright (c) 2021-2022
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.eval.test;
+package at.tugraz.ist.ase.eval.test.builder.fm;
 
-import at.tugraz.ist.ase.eval.test.fm.FMTestCaseBuilder;
-import at.tugraz.ist.ase.eval.test.fm.FMTestSuiteBuilder;
+import at.tugraz.ist.ase.eval.test.TestSuite;
+import at.tugraz.ist.ase.eval.test.builder.TestSuiteBuilder;
 import lombok.Cleanup;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ class TestSuiteTest {
 
     @BeforeAll
     static void setUp() throws IOException {
-        FMTestSuiteBuilder factory = new FMTestSuiteBuilder();
+        TestSuiteBuilder factory = new TestSuiteBuilder();
         FMTestCaseBuilder testCaseFactory = new FMTestCaseBuilder();
         @Cleanup InputStream is = getInputStream(TestSuiteTest.class.getClassLoader(), "FM_10_0_c5_0.testcases");
 
@@ -39,11 +39,12 @@ class TestSuiteTest {
 
     @Test
     public void testToString() {
-        String expected = "~gui_builder & uml & sdi & ~mdi\n" +
-                "~gui_builder & diagram_builder & ~uml\n" +
-                "~interface & ~gui_builder & diagram_builder & ~uml & sdi\n" +
-                "~interface & ~diagram_builder & uml & mdi\n" +
-                "~mdi & interface";
+        String expected = """
+                ~gui_builder & uml & sdi & ~mdi
+                ~gui_builder & diagram_builder & ~uml
+                ~interface & ~gui_builder & diagram_builder & ~uml & sdi
+                ~interface & ~diagram_builder & uml & mdi
+                ~mdi & interface""";
 
         assertEquals(expected, testSuite.toString());
     }

@@ -1,16 +1,14 @@
 /*
  * eval-package - A Maven package for evaluation
  *
- * Copyright (c) 2021
+ * Copyright (c) 2021-2022
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.eval.test.fm;
+package at.tugraz.ist.ase.eval.test.builder;
 
 import at.tugraz.ist.ase.common.LoggerUtils;
-import at.tugraz.ist.ase.eval.test.ITestCaseBuildable;
-import at.tugraz.ist.ase.eval.test.ITestSuiteBuildable;
 import at.tugraz.ist.ase.eval.test.TestCase;
 import at.tugraz.ist.ase.eval.test.TestSuite;
 import lombok.Cleanup;
@@ -26,7 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Slf4j
-public class FMTestSuiteBuilder implements ITestSuiteBuildable {
+public class TestSuiteBuilder implements ITestSuiteBuildable {
 
     @Override
     public TestSuite buildTestSuite(@NonNull InputStream is, @NonNull ITestCaseBuildable testCaseBuilder) throws IOException {
