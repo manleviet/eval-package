@@ -1,40 +1,48 @@
 /*
  * eval-package - A Maven package for evaluation
  *
- * Copyright (c) 2021
+ * Copyright (c) 2021-2022
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.eval;
+package at.tugraz.ist.ase.eval.evaluator;
+
+import at.tugraz.ist.ase.common.LoggerUtils;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkState;
 import static java.util.Collections.unmodifiableList;
 
 /**
  * Simple class for measuring time in experiments. The timings of time measurements are stored in an array and can be
  * retrieved using getTimings method.
  */
-public class Timer extends Evaluation {
+@Slf4j
+public class Timer extends AbstractEvaluator {
 
-    private final LinkedList<Long> timings = new LinkedList<>();
+    private final List<Long> timings = new LinkedList<>();
     private long time = 0;
-    private Boolean running = null;
+    private boolean running = false;
 
-    Timer(String name) {
+    public Timer(String name) {
         super(name);
+
+        log.debug("{}Created a timer [timer={}]", LoggerUtils.tab, name);
     }
 
     /**
      * Start the timer.
      */
     public void start() {
-        if (this.running != null && this.running) throw new IllegalStateException("The timer " + this.name + " is " +
-                "already running!");
+        checkState(!this.running, "The timer \"%s\" is already running!", this.name);
         this.running = true;
         this.time = System.nanoTime();
+
+        log.debug("{}Started the timer [timer={}]", LoggerUtils.tab, name);
     }
 
     /**
@@ -46,6 +54,9 @@ public class Timer extends Evaluation {
         this.time = getElapsedTime();
         this.running = false;
         this.timings.add(this.time);
+
+        log.debug("{}Stopped the timer [timer={}]", LoggerUtils.tab, name);
+
         return this.time;
     }
 
@@ -53,8 +64,8 @@ public class Timer extends Evaluation {
      * @return the time elapsed since the timer is started.
      */
     public long getElapsedTime() {
-        if (this.running == null || !this.running) throw new IllegalStateException("The timer " + this.name + " is " +
-                "not running!");
+        checkState(this.running, "The timer \"%s\" is not running!", this.name);
+
         return System.nanoTime() - this.time;
     }
 

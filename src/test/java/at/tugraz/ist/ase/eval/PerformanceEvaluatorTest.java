@@ -1,18 +1,21 @@
 /*
  * eval-package - A Maven package for evaluation
  *
- * Copyright (c) 2021
+ * Copyright (c) 2021-2022
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
 package at.tugraz.ist.ase.eval;
 
-import org.testng.annotations.Test;
+import at.tugraz.ist.ase.eval.evaluator.PerformanceEvaluator;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-import static at.tugraz.ist.ase.eval.PerformanceEvaluation.*;
+import static at.tugraz.ist.ase.eval.evaluator.PerformanceEvaluator.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class PerformanceEvaluationTest {
+public class PerformanceEvaluatorTest {
 
     public static final String COUNTER_FINDCONFLICT_CALLS = "The number of QX calls:";
     public static final String COUNTER_FASTDIAG_CALLS = "The number of FD calls:";
@@ -25,8 +28,11 @@ public class PerformanceEvaluationTest {
     public static final String TIMER_ALL = "Time for all:";
 
     @Test
+    @DisplayName("Test performance evaluation")
     public void testPerformanceEvaluation() {
-        PerformanceEvaluation.reset();
+        PerformanceEvaluator.reset();
+
+        assertThrows(IllegalStateException.class, () -> getTimer("TIMER_ALL").getElapsedTime());
 
         start(TIMER_ALL);
         start(TIMER_FIRST);
@@ -59,14 +65,14 @@ public class PerformanceEvaluationTest {
         stop(TIMER_FIRST);
         stop(TIMER_ALL);
 
-        String results = PerformanceEvaluation.getEvaluationResults();
+        String results = PerformanceEvaluator.getEvaluationResults();
         System.out.println(results);
 
-        assert getCounter(COUNTER_FINDCONFLICT_CALLS).getValue() == 3;
-        assert getCounter(COUNTER_FASTDIAG_CALLS).getValue() == 5;
-        assert getCounter(COUNTER_CONSISTENCY_CHECKS).getValue() == 21;
-        assert getCounter(COUNTER_SIZE_CONSISTENCY_CHECKS).getValue() == 301;
-        assert getCounter(COUNTER_UNION_OPERATOR).getValue() == 3;
-        assert getCounter(COUNTER_ADD_OPERATOR).getValue() == 3;
+        assertAll(() -> assertEquals(3, getCounter(COUNTER_FINDCONFLICT_CALLS).getValue()),
+                () -> assertEquals(5, getCounter(COUNTER_FASTDIAG_CALLS).getValue()),
+                () -> assertEquals(21, getCounter(COUNTER_CONSISTENCY_CHECKS).getValue()),
+                () -> assertEquals(301, getCounter(COUNTER_SIZE_CONSISTENCY_CHECKS).getValue()),
+                () -> assertEquals(3, getCounter(COUNTER_UNION_OPERATOR).getValue()),
+                () -> assertEquals(3, getCounter(COUNTER_ADD_OPERATOR).getValue()));
     }
 }
