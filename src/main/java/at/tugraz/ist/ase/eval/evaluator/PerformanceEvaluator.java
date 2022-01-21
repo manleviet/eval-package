@@ -1,13 +1,15 @@
 /*
  * eval-package - A Maven package for evaluation
  *
- * Copyright (c) 2021
+ * Copyright (c) 2021-2022
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
 package at.tugraz.ist.ase.eval.evaluator;
 
+import at.tugraz.ist.ase.common.LoggerUtils;
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collections;
@@ -15,13 +17,13 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
-// TODO: @UtilityClass
+@UtilityClass
 public class PerformanceEvaluator {
 
-    public static boolean showEvaluation = false;
+    public boolean showEvaluation = false;
 
-    private static ConcurrentHashMap<String, Counter> counters = new ConcurrentHashMap<>();
-    private static ConcurrentHashMap<String, Timer> timers = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String, Counter> counters = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String, Timer> timers = new ConcurrentHashMap<>();
 
     /**
      * Returns a counter with the given name. If counter does not exist, it will be created by the method and added
@@ -30,7 +32,7 @@ public class PerformanceEvaluator {
      * @param name of the counter
      * @return a counter
      */
-    public static Counter getCounter(String name) {
+    public Counter getCounter(String name) {
         return counters.computeIfAbsent(name, (key) -> new Counter(name));
     }
 
@@ -41,7 +43,7 @@ public class PerformanceEvaluator {
      * @param name of the timer
      * @return a timer
      */
-    public static Timer getTimer(String name) {
+    public Timer getTimer(String name) {
         return timers.computeIfAbsent(name, (key) -> new Timer(name));
     }
 
@@ -51,7 +53,7 @@ public class PerformanceEvaluator {
      * @param name of the counter
      * @return new value of the counter
      */
-    public static long incrementCounter(String name) {
+    public long incrementCounter(String name) {
         return incrementCounter(name, 1);
     }
 
@@ -62,7 +64,7 @@ public class PerformanceEvaluator {
      * @param step to increment the counter
      * @return new value of the counter
      */
-    public static long incrementCounter(String name, int step) {
+    public long incrementCounter(String name, int step) {
         return getCounter(name).increment(step);
     }
 
@@ -71,7 +73,7 @@ public class PerformanceEvaluator {
      *
      * @param name of the counter
      */
-    public static void start(String name) {
+    public void start(String name) {
         getTimer(name).start();
     }
 
@@ -81,7 +83,7 @@ public class PerformanceEvaluator {
      * @param name of the timer
      * @return elapsed time since the timer was started
      */
-    public static long stop(String name) {
+    public long stop(String name) {
         return getTimer(name).stop();
     }
 
@@ -89,39 +91,39 @@ public class PerformanceEvaluator {
      * @param name of the timer
      * @return the total time that the timer was running
      */
-    public static long total(String name) {
+    public long total(String name) {
         return getTimer(name).total();
     }
 
     /**
      * @return an unmodifiable map of counters
      */
-    public static Map<String, Counter> getCounters() {
+    public Map<String, Counter> getCounters() {
         return Collections.unmodifiableMap(counters);
     }
 
     /**
      * @return an unmodifiable map of timers
      */
-    public static Map<String, Timer> getTimers() {
+    public Map<String, Timer> getTimers() {
         return Collections.unmodifiableMap(timers);
     }
 
     /**
      * Reinitialize all existing counters.
      */
-    public static void reset() {
+    public void reset() {
         counters = new ConcurrentHashMap<>();
         timers = new ConcurrentHashMap<>();
 
-        log.info("PerformanceEvaluation has been reset.");
+        log.debug("{}Reset PerformanceEvaluator", LoggerUtils.tab);
     }
 
     /**
      * Get evaluation results in the format of a string.
      * @return a string of evaluation results.
      */
-    public static String getEvaluationResults() {
+    public String getEvaluationResults() {
         StringBuilder st = new StringBuilder();
 
         for (String key: counters.keySet()) {
@@ -142,7 +144,7 @@ public class PerformanceEvaluator {
      * @param numIteration the number of iterations
      * @return a string of evaluation results.
      */
-    public static String getEvaluationResults(int numIteration) {
+    public String getEvaluationResults(int numIteration) {
         StringBuilder st = new StringBuilder();
 
         for (String key: counters.keySet()) {
