@@ -17,13 +17,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
-@UtilityClass
 public class PerformanceEvaluator {
 
-    public boolean showEvaluation = false;
+    public static boolean showEvaluation = false;
 
-    private ConcurrentHashMap<String, Counter> counters = new ConcurrentHashMap<>();
-    private ConcurrentHashMap<String, Timer> timers = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<String, Counter> counters = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<String, Timer> timers = new ConcurrentHashMap<>();
 
     /**
      * Returns a counter with the given name. If counter does not exist, it will be created by the method and added
@@ -32,7 +31,7 @@ public class PerformanceEvaluator {
      * @param name of the counter
      * @return a counter
      */
-    public Counter getCounter(String name) {
+    public static Counter getCounter(String name) {
         return counters.computeIfAbsent(name, (key) -> new Counter(name));
     }
 
@@ -43,7 +42,7 @@ public class PerformanceEvaluator {
      * @param name of the timer
      * @return a timer
      */
-    public Timer getTimer(String name) {
+    public static Timer getTimer(String name) {
         return timers.computeIfAbsent(name, (key) -> new Timer(name));
     }
 
@@ -53,7 +52,7 @@ public class PerformanceEvaluator {
      * @param name of the counter
      * @return new value of the counter
      */
-    public long incrementCounter(String name) {
+    public static long incrementCounter(String name) {
         return incrementCounter(name, 1);
     }
 
@@ -64,7 +63,7 @@ public class PerformanceEvaluator {
      * @param step to increment the counter
      * @return new value of the counter
      */
-    public long incrementCounter(String name, int step) {
+    public static long incrementCounter(String name, int step) {
         return getCounter(name).increment(step);
     }
 
@@ -73,7 +72,7 @@ public class PerformanceEvaluator {
      *
      * @param name of the counter
      */
-    public void start(String name) {
+    public static void start(String name) {
         getTimer(name).start();
     }
 
@@ -83,7 +82,7 @@ public class PerformanceEvaluator {
      * @param name of the timer
      * @return elapsed time since the timer was started
      */
-    public long stop(String name) {
+    public static long stop(String name) {
         return getTimer(name).stop();
     }
 
@@ -91,28 +90,28 @@ public class PerformanceEvaluator {
      * @param name of the timer
      * @return the total time that the timer was running
      */
-    public long total(String name) {
+    public static long total(String name) {
         return getTimer(name).total();
     }
 
     /**
      * @return an unmodifiable map of counters
      */
-    public Map<String, Counter> getCounters() {
+    public static Map<String, Counter> getCounters() {
         return Collections.unmodifiableMap(counters);
     }
 
     /**
      * @return an unmodifiable map of timers
      */
-    public Map<String, Timer> getTimers() {
+    public static Map<String, Timer> getTimers() {
         return Collections.unmodifiableMap(timers);
     }
 
     /**
      * Reinitialize all existing counters.
      */
-    public void reset() {
+    public static void reset() {
         counters = new ConcurrentHashMap<>();
         timers = new ConcurrentHashMap<>();
 
@@ -123,7 +122,7 @@ public class PerformanceEvaluator {
      * Get evaluation results in the format of a string.
      * @return a string of evaluation results.
      */
-    public String getEvaluationResults() {
+    public static String getEvaluationResults() {
         StringBuilder st = new StringBuilder();
 
         for (String key: counters.keySet()) {
@@ -144,7 +143,7 @@ public class PerformanceEvaluator {
      * @param numIteration the number of iterations
      * @return a string of evaluation results.
      */
-    public String getEvaluationResults(int numIteration) {
+    public static String getEvaluationResults(int numIteration) {
         StringBuilder st = new StringBuilder();
 
         for (String key: counters.keySet()) {
