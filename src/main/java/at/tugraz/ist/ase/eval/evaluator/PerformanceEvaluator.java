@@ -141,9 +141,10 @@ public class PerformanceEvaluator {
 
             List<Long> times = getTimer(key).getTimings();
 
-            times.forEach(time -> st.append((double)time / 1000000000.0).append(" "));
-
-            st.append("\n");
+            if (times.size() > 0) {
+                times.forEach(time -> st.append((double) time / 1000000000.0).append(" "));
+                st.append("\n");
+            }
         }
 
         return st.toString();
