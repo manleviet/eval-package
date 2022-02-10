@@ -38,7 +38,7 @@ public class TestCase implements Cloneable {
      * @param startIdx the index of the first constraint.
      * @param endIdx the index of the last constraint.
      */
-    private void addChocoConstraints(@NonNull Model model, int startIdx, int endIdx) {
+    public void addChocoConstraints(@NonNull Model model, int startIdx, int endIdx) {
         if (chocoConstraints == null) {
             chocoConstraints = new LinkedList<>();
         }
