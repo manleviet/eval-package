@@ -50,14 +50,21 @@ public class Timer extends AbstractEvaluator {
      *
      * @return return the time elapsed since the start in nanoseconds.
      */
-    public long stop() {
+    public long stop(boolean isSave) {
         this.time = getElapsedTime();
         this.running = false;
-        this.timings.add(this.time);
+
+        if (isSave) {
+            this.timings.add(this.time);
+        }
 
         log.debug("{}Stopped the timer [timer={}]", LoggerUtils.tab, name);
 
         return this.time;
+    }
+
+    public long stop() {
+        return stop(true);
     }
 
     /**
