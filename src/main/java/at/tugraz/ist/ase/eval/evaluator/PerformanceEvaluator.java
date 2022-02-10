@@ -13,6 +13,7 @@ import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -133,6 +134,12 @@ public class PerformanceEvaluator {
 
         for (String key: timers.keySet()) {
             st.append(key).append(" ").append(getTimer(key)).append("\n");
+
+            List<Long> times = getTimer(key).getTimings();
+
+            times.forEach(time -> st.append((double)time / 1000000000.0).append(" "));
+
+            st.append("\n");
         }
 
         return st.toString();

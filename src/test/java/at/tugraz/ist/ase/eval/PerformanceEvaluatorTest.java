@@ -41,6 +41,9 @@ public class PerformanceEvaluatorTest {
         incrementCounter(COUNTER_FINDCONFLICT_CALLS);
         incrementCounter(COUNTER_FINDCONFLICT_CALLS);
 
+        stop(TIMER_FIRST);
+        start(TIMER_FIRST);
+
         incrementCounter(COUNTER_FASTDIAG_CALLS);
         incrementCounter(COUNTER_FASTDIAG_CALLS);
         incrementCounter(COUNTER_FASTDIAG_CALLS);
@@ -49,6 +52,9 @@ public class PerformanceEvaluatorTest {
 
         incrementCounter(COUNTER_CONSISTENCY_CHECKS, 10);
         incrementCounter(COUNTER_CONSISTENCY_CHECKS, 11);
+
+        stop(TIMER_FIRST);
+        start(TIMER_FIRST);
 
         incrementCounter(COUNTER_SIZE_CONSISTENCY_CHECKS, 100);
         incrementCounter(COUNTER_SIZE_CONSISTENCY_CHECKS, 101);
