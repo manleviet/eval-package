@@ -83,6 +83,10 @@ public class PerformanceEvaluator {
      * @param name of the timer
      * @return elapsed time since the timer was started
      */
+    public static long stop(String name, boolean isSave) {
+        return getTimer(name).stop(isSave);
+    }
+
     public static long stop(String name) {
         return getTimer(name).stop();
     }
