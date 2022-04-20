@@ -13,6 +13,8 @@ import org.chocosolver.solver.constraints.Constraint;
 import java.util.List;
 
 public interface ITestCase {
+    List<Assignment> getAssignments();
+
     List<Constraint> getChocoConstraints();
     List<Constraint> getNegChocoConstraints();
 
