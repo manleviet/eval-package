@@ -22,7 +22,7 @@ import static com.google.common.base.Preconditions.checkState;
 @Getter @Setter
 @EqualsAndHashCode
 public class TestSuite {
-    private @NonNull List<TestCase> testCases; // list of test cases
+    private @NonNull List<ITestCase> testCases; // list of test cases
 
     /**
      * Gets the number of test cases.
@@ -37,8 +37,8 @@ public class TestSuite {
      * @param testcase a textual testcase.
      * @return a corresponding {@link TestCase} object.
      */
-    public TestCase getTestCase(@NonNull String testcase) {
-        for (TestCase tc: testCases) {
+    public ITestCase getTestCase(@NonNull String testcase) {
+        for (ITestCase tc: testCases) {
             if (tc.toString().equals(testcase)) {
                 return tc;
             }
@@ -49,7 +49,7 @@ public class TestSuite {
     @Override
     public String toString() {
         return testCases.stream()
-                .map(TestCase::toString)
+                .map(ITestCase::toString)
                 .collect(Collectors.joining("\n"));
     }
 }

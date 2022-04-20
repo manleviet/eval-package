@@ -8,9 +8,10 @@
 
 package at.tugraz.ist.ase.eval.test.builder;
 
+import at.tugraz.ist.ase.eval.test.ITestCase;
 import at.tugraz.ist.ase.eval.test.TestCase;
 import lombok.NonNull;
 
 public interface ITestCaseBuildable {
-    TestCase buildTestCase(@NonNull String testcase);
+    ITestCase buildTestCase(@NonNull String testcase);
 }

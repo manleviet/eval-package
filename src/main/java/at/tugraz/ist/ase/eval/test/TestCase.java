@@ -21,20 +21,22 @@ import java.util.List;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkElementIndex;
 
-/***
+/**
  * Represents a test case.
  */
 @Slf4j
 @Builder
 @Getter @Setter
 @EqualsAndHashCode
-public class TestCase implements Cloneable {
+public class TestCase implements ITestCase, Cloneable {
     private @NonNull String testcase; // a test case
     private @NonNull List<Assignment> assignments; // the list of assignments
     private List<Constraint> chocoConstraints; // the list of Choco constraints which are translated from this test case
     private List<Constraint> negChocoConstraints; // a list of NEGATIVE Choco constraints
 
     private boolean isViolated; // represents the violation of this test case with the knowledge base
+
+    // TODO: intergrate the aggregated test cases
 
     /**
      * Adds a set of Choco constraints to the {@link TestCase} object.

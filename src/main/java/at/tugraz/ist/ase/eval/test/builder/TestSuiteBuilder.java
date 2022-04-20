@@ -9,6 +9,7 @@
 package at.tugraz.ist.ase.eval.test.builder;
 
 import at.tugraz.ist.ase.common.LoggerUtils;
+import at.tugraz.ist.ase.eval.test.ITestCase;
 import at.tugraz.ist.ase.eval.test.TestCase;
 import at.tugraz.ist.ase.eval.test.TestSuite;
 import lombok.Cleanup;
@@ -33,14 +34,14 @@ public class TestSuiteBuilder implements ITestSuiteBuildable {
 
         @Cleanup BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
 
-        List<TestCase>  testCases = new LinkedList<>();
+        List<ITestCase>  testCases = new LinkedList<>();
 
         br.readLine(); // omit first line
 
         // Read all test cases
         String line;
         while ((line = br.readLine()) != null) {
-            TestCase testCase = testCaseBuilder.buildTestCase(line);
+            ITestCase testCase = testCaseBuilder.buildTestCase(line);
             testCases.add(testCase);
         }
 
