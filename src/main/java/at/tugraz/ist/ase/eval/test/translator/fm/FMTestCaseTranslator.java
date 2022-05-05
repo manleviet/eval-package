@@ -9,26 +9,33 @@
 package at.tugraz.ist.ase.eval.test.translator.fm;
 
 //import at.tugraz.ist.ase.debugging.testcases.AggregatedTestCase;
+import at.tugraz.ist.ase.common.LoggerUtils;
 import at.tugraz.ist.ase.eval.test.Assignment;
 import at.tugraz.ist.ase.eval.test.ITestCase;
 import at.tugraz.ist.ase.eval.test.TestCase;
 import at.tugraz.ist.ase.eval.test.translator.ITestCaseTranslatable;
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.constraints.nary.cnf.LogOp;
 import org.chocosolver.solver.variables.BoolVar;
 
 import static at.tugraz.ist.ase.common.ChocoSolverUtils.getVariable;
 
+@Slf4j
 public class FMTestCaseTranslator implements ITestCaseTranslatable {
     /**
      * Translates test cases to Choco constraints.
      */
     @Override
-    public void translate(ITestCase testCase, Model model) {
+    public void translate(@NonNull ITestCase testCase, @NonNull Model model) {
+
         if (testCase instanceof TestCase tc) {
+            log.trace("{}Translating test case [testcase={}] >>>", LoggerUtils.tab, testCase);
             createTestCase(tc, model);
         }
 //        else if (testCase instanceof AggregatedTestCase atc) {
+//            log.trace("{}Translating aggregated test case [testcase={}] >>>", LoggerUtils.tab, testCase);
 //            for (ITestCase tc : atc.getTestcases()) {
 //                createTestCase((TestCase) tc, model);
 //            }
@@ -62,6 +69,8 @@ public class FMTestCaseTranslator implements ITestCaseTranslatable {
         model.addClauses(negLogOp);
         lastCstrIdx = model.getNbCstrs();
         setConstraintsToTestCase(tc, model, startIdx, lastCstrIdx - 1, true);
+
+        log.debug("{}Translated test case [testcase={}] >>>", LoggerUtils.tab, tc);
     }
 
     /**
